@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Welcome to CUFitness!</h1>
+    <p>This is the home page.</p>
+
+    <!-- Conditionally show logout form or login link -->
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a></p>
+    {% endif %}
+
+    <!-- Display Django messages, if any -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert" style="margin-top: 20px; font-style: italic; color: #555;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Display the motivational quote -->
+    <div class="motivational-quote" style="margin-top: 20px; font-style: italic; color: #555;">
+        <blockquote>
+            "{{ motivational_quote }}"
+        </blockquote>
+    </div>
+</body>
+</html>
